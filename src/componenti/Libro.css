@@ -1,0 +1,13 @@
+img {
+    width: 150px;
+    height: auto;
+}
+
+#InfoLibro {
+    height: auto;
+    width: 250px;
+    border: 2px solid;
+    border-color: black;
+    border-radius: 20px;
+    background-color: rgb(245, 227, 203);
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Tasto from './componenti/Tasto.jsx'
+import Libro from './componenti/Libro.jsx'
 import './App.css'
 
 function App() {
@@ -8,14 +8,10 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
+      <h1>MyLibrary</h1>
+      <h2>Libri disponibili</h2>
+      <h2>Libri in prestito</h2>
+      <Libro Titolo={"TitoloUno"} Autore={"AutoreUno"} CasaEditrice={"EditoreUno"} Genere={"GenereUno"} Copertina={"https://staticmy.zanichelli.it/copertine/dashboard/m40042.9788808699749.jpg"}></Libro>
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
