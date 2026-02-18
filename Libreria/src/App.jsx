@@ -46,16 +46,17 @@ function App() {
     <div id="main">
       <h1>MyLibrary</h1>
       <h2>Libri disponibili</h2>
+      <Tasto testo={"Aggiungi"}></Tasto>
       {libri.map((libro, idx) => (
-      <Libro
-        key={idx}
-        Titolo={libro.Titolo}
-        Autore={libro.Autore}
-        CasaEditrice={libro.CasaEditrice}
-        Genere={libro.Genere}
-        Copertina={libro.Copertina}
-      />
-    ))}
+        <Libro
+          key={idx}
+          Titolo={libro.Titolo}
+          Autore={libro.Autore}
+          CasaEditrice={libro.CasaEditrice}
+          Genere={libro.Genere}
+          Copertina={libro.Copertina}
+        ></Libro>
+      ))}
       <h2>Libri in prestito</h2>
       <Libro Titolo={"TitoloUno"} Autore={"AutoreUno"} CasaEditrice={"EditoreUno"} Genere={"GenereUno"} Copertina={"https://staticmy.zanichelli.it/copertine/dashboard/m40042.9788808699749.jpg"}></Libro>
     </div>
