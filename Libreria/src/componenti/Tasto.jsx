@@ -14,7 +14,7 @@ function Tasto({testo, titolo, autore, casaEditrice, genere, copertina}){
             <input type="text" />
             <h3>Genere</h3>
             <input type="text" />
-            <h3>Copertina</h3>
+            <h3>Copertina (link immagine)</h3>
             <input type="text" />
         </div>
     </>

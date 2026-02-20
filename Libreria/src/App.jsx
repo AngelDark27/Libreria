@@ -22,6 +22,7 @@ function App() {
           CasaEditrice: libro.CasaEditrice,
           Genere: libro.Genere || '',
           Copertina: libro.Copertina || '',
+          Prestito: libro.Prestito
         }));
 
         setLibri(libriData);
