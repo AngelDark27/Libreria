@@ -1,42 +1,87 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+#main {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+h1 {
+    color: #333;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    border-bottom: 3px solid rgb(185, 169, 147);
+    padding-bottom: 10px;
+    flex: 0 0 100%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h2 {
+    color: #444;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    flex: 0 0 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Il primo h2 è "Libri disponibili" */
+h2:first-of-type {
+    margin-bottom: 10px;
 }
 
-.card {
-  padding: 2em;
+/* Il componente Tasto (div con id="info") - PRIMO elemento dopo h2 */
+h2:first-of-type + div {
+    flex: 0 0 auto;
+    margin-right: 30px;
+    margin-bottom: 30px;
 }
 
-.read-the-docs {
-  color: #888;
+/* TUTTI i libri disponibili (div con id="InfoLibro" che vengono DOPO il form) */
+h2:first-of-type + div + div#InfoLibro,
+h2:first-of-type + div + div#InfoLibro + div#InfoLibro,
+h2:first-of-type + div + div#InfoLibro + div#InfoLibro + div#InfoLibro {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+/* Oppure più semplicemente: tutti i div#InfoLibro che vengono dopo il primo h2 */
+h2:first-of-type ~ div#InfoLibro {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+/* Il secondo h2 è "Libri in prestito" */
+h2:last-of-type {
+    margin-top: 20px;
+    flex: 0 0 100%;
+}
+
+/* Tutti i libri in prestito (div#InfoLibro dopo il secondo h2) */
+h2:last-of-type ~ div#InfoLibro {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+/* Stili responsive */
+@media (max-width: 768px) {
+    #main {
+        justify-content: center;
+    }
+    
+    h2:first-of-type + div {
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+    
+    h2:first-of-type ~ div#InfoLibro,
+    h2:last-of-type ~ div#InfoLibro {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
 }
