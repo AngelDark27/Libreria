@@ -4,58 +4,56 @@ import Tasto from './componenti/Tasto.jsx';
 import Libro from './componenti/Libro';
 import './App.css';
 
+//creo connessione a pocketbase
 const pb = new PocketBase('http://127.0.0.1:8090');
-// Disabilita auto-cancellation per evitare errori
-pb.autoCancellation(false);
 
 function App() {
-  const [libri, setLibri] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [libri, setLibri] = useState([]); //lirbi del pocketbase
+  const [isLoading, setIsLoading] = useState(false); //caricamento libri
 
-  // 🆕 FUNZIONE PER AGGIUNGERE LIBRI
+
   async function aggiungiLibro(nuovoLibro) {
     try {
-      // Prepara i dati - Genere e Copertina hanno valori di default se vuoti
-      const payload = {
+      const libro = {
         Titolo: nuovoLibro.Titolo,
         Autore: nuovoLibro.Autore,
         CasaEditrice: nuovoLibro.CasaEditrice,
-        Genere: nuovoLibro.Genere || "Non indicato", // Valore default se vuoto
-        Copertina: nuovoLibro.Copertina || "https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1", // Valore default se vuoto
+        Genere: nuovoLibro.Genere || "Non indicato",
+        Copertina: nuovoLibro.Copertina || "https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1",
         Prestito: false
       };
 
-      console.log("Payload inviato:", payload);
+      console.log("libro inviato:", libro);
 
-      // Crea il record su PocketBase
-      const record = await pb.collection("Libri").create(payload);
-
-      // Aggiorna la lista libri
-      setLibri(prev => [...prev, { id: record.id, ...payload }]);
+      const record = await pb.collection("Libri").create(libro); //carica il libro in pocketbase
+   
+      setLibri(prev => [...prev, { id: record.id, ...libro }]); //aggiorna la lista di libri con quello nuovo
       
-      alert("Libro aggiunto con successo!");
-    } catch (error) {
+      alert("Libro aggiunto correttamente!");
+
+    } catch (error) { //messaggio in caso di errore
       console.error("Errore dettagliato:", error);
       alert("Errore durante l'inserimento: " + (error.message || "Riprova"));
     }
   }
 
+  //carica libri
   useEffect(() => {
-    let isMounted = true;
+    let carica = true;
     
     async function caricaLibri() {
       try {
         setIsLoading(true);
-        const result = await pb.collection('Libri').getFullList();
+        const result = await pb.collection('Libri').getFullList(); //carica tutti gli elementi della collezione libri
 
-        if (isMounted) {
+        if (carica) {
           const libriData = result.map(libro => ({
             id: libro.id,
             Titolo: libro.Titolo,
             Autore: libro.Autore,
             CasaEditrice: libro.CasaEditrice,
-            Genere: libro.Genere || '',
-            Copertina: libro.Copertina || '',
+            Genere: libro.Genere || "Non indicato",
+            Copertina: libro.Copertina || "https://i0.wp.com/learn.onemonth.com/wp-content/uploads/2017/08/1-10.png?fit=845%2C503&ssl=1",
             Prestito: libro.Prestito
           }));
 
@@ -64,7 +62,7 @@ function App() {
       } catch (error) {
         console.error('Errore nel caricamento dei libri:', error);
       } finally {
-        if (isMounted) {
+        if (carica) {
           setIsLoading(false);
         }
       }
@@ -73,7 +71,7 @@ function App() {
     caricaLibri();
     
     return () => {
-      isMounted = false;
+      carica = false;
     };
   }, []);
 
@@ -81,18 +79,17 @@ function App() {
     return <h2>Caricamento dati...</h2>;
   }
 
-  const libriDisponibili = libri.filter(libro => libro.Prestito === false);
-  const libriInPrestito = libri.filter(libro => libro.Prestito === true);
+  const libriDisponibili = libri.filter(libro => libro.Prestito === false); //lista libri disponibili
+  const libriInPrestito = libri.filter(libro => libro.Prestito === true); //lista libri in prestito
 
   return (
     <div id="main">
       <h1>MyLibrary</h1>
 
       <h2>Libri disponibili</h2>
-      {/* 🆕 Passa la funzione onAggiungi al componente Tasto */}
       <Tasto testo="Aggiungi" onAggiungi={aggiungiLibro} />
 
-      {libriDisponibili.map(libro => (
+      {libriDisponibili.map(libro => ( //mosta i libri disponibili
         <Libro
           key={libro.id}
           Titolo={libro.Titolo}
@@ -104,7 +101,7 @@ function App() {
       ))}
 
       <h2>Libri in prestito</h2>
-      {libriInPrestito.map(libro => (
+      {libriInPrestito.map(libro => ( //mosta i libri in prestito
         <Libro
           key={libro.id}
           Titolo={libro.Titolo}
