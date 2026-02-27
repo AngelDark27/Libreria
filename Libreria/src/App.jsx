@@ -37,6 +37,24 @@ function App() {
     }
   }
 
+  async function eliminaLibro(vecchioLibro) {
+  try {
+    // eliminazione su PocketBase usando l'id
+    await pb.collection("Libri").delete(vecchioLibro.id);
+
+    // aggiorna lo stato locale
+    setLibri(prev =>
+      prev.filter(libro => libro.id !== vecchioLibro.id)
+    );
+
+    alert("Libro eliminato correttamente!");
+
+  } catch (error) {
+    console.error("Errore dettagliato:", error);
+    alert("Errore durante l'eliminazione: " + (error.message || "Riprova"));
+  }
+}
+
   //carica libri
   useEffect(() => {
     let carica = true;
@@ -85,10 +103,9 @@ function App() {
   return (
     <div id="main">
       <h1>MyLibrary</h1>
-
-      <h2>Libri disponibili</h2>
       <Tasto testo="Aggiungi" onAggiungi={aggiungiLibro} />
-
+      <Tasto testo="Elimina" onAggiungi={eliminaLibro}/>
+      <h2>Libri disponibili</h2>
       {libriDisponibili.map(libro => ( //mosta i libri disponibili
         <Libro
           key={libro.id}
