@@ -23,8 +23,6 @@ function App() {
         Prestito: false
       };
 
-      console.log("libro inviato:", libro);
-
       const record = await pb.collection("Libri").create(libro); //carica il libro in pocketbase
    
       setLibri(prev => [...prev, { id: record.id, ...libro }]); //aggiorna la lista di libri con quello nuovo
@@ -39,9 +37,7 @@ function App() {
 
   async function eliminaLibro(datiLibro) {
   try {
-    const record = await pb
-      .collection("Libri")
-      .getFirstListItem(
+    const record = await pb.collection("Libri").getFirstListItem(
         `Titolo="${datiLibro.Titolo}" &&
          Autore="${datiLibro.Autore}" &&
          CasaEditrice="${datiLibro.CasaEditrice}"`
