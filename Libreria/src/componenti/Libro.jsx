@@ -1,7 +1,12 @@
 import "./Libro.css"
 
-function Libro({Titolo, Autore, CasaEditrice, Genere, Copertina}){
-        return(
+function Libro({Titolo, Autore, CasaEditrice, Genere, Copertina, Prestito}){
+    if(Prestito==true){
+        Prestito="Cancella prestito"
+    }else{
+        Prestito="Prendi in prestito"
+    }
+    return(
         <>
             <div id="InfoLibro">
                 <br />
@@ -11,6 +16,7 @@ function Libro({Titolo, Autore, CasaEditrice, Genere, Copertina}){
                 <h3>{CasaEditrice}</h3>
                 <br />
                 <h3>Genere: {Genere}</h3>
+                <button>{Prestito}</button>
             </div>
         </>
     )
