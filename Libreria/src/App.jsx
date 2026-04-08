@@ -120,6 +120,7 @@ function App() {
           CasaEditrice={libro.CasaEditrice}
           Genere={libro.Genere}
           Copertina={libro.Copertina}
+          Prestito={libro.Prestito}
         />
       ))}
 
@@ -132,6 +133,8 @@ function App() {
           CasaEditrice={libro.CasaEditrice}
           Genere={libro.Genere}
           Copertina={libro.Copertina}
+          
+          Prestito={libro.Prestito}
         />
       ))}
     </div>
